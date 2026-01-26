@@ -4,19 +4,368 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>DSA Practice Tracker</title>
-    <script crossorigin src="https://unpkg.com/react@18/umd/react.production.min.js"></script>
-    <script crossorigin src="https://unpkg.com/react-dom@18/umd/react-dom.production.min.js"></script>
-    <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
     <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        body {
+            background: linear-gradient(135deg, #1e293b 0%, #7e22ce 50%, #1e293b 100%);
+            min-height: 100vh;
+        }
+    </style>
 </head>
-<body>
-    <div id="root"></div>
-    
-    <script type="text/babel" src="DSATracker.jsx"></script>
-    
-    <script type="text/babel">
-        const root = ReactDOM.createRoot(document.getElementById('root'));
-        root.render(<DSATracker />);
+<body class="p-6">
+    <div class="max-w-7xl mx-auto">
+        <div class="bg-white/10 backdrop-blur-lg rounded-2xl p-6 mb-6 border border-white/20">
+            <h1 class="text-4xl font-bold text-white mb-2">DSA Practice Tracker</h1>
+            <p class="text-purple-200 mb-4">January 2026 - May 2026 • 150 Days Challenge</p>
+            
+            <div class="flex flex-wrap gap-4 items-center justify-between mb-4">
+                <div class="flex gap-6">
+                    <div class="bg-white/20 rounded-lg p-3">
+                        <div class="text-2xl font-bold text-white" id="statsCompleted">0/0</div>
+                        <div class="text-sm text-purple-200">Problems Solved</div>
+                    </div>
+                    <div class="bg-white/20 rounded-lg p-3">
+                        <div class="text-2xl font-bold text-white" id="statsProgress">0%</div>
+                        <div class="text-sm text-purple-200">Progress</div>
+                    </div>
+                </div>
+                
+                <div class="flex gap-2">
+                    <button onclick="regenerateProblems()" class="flex items-center gap-2 bg-purple-600 hover:bg-purple-700 text-white px-4 py-2 rounded-lg transition">
+                        <span>🔄</span> Regenerate
+                    </button>
+                    <button onclick="exportToCSV()" class="flex items-center gap-2 bg-green-600 hover:bg-green-700 text-white px-4 py-2 rounded-lg transition">
+                        <span>📥</span> Export CSV
+                    </button>
+                </div>
+            </div>
+
+            <div class="flex gap-2">
+                <button onclick="setFilter('all')" id="filterAll" class="px-4 py-2 rounded-lg transition bg-purple-600 text-white">All Days</button>
+                <button onclick="setFilter('pending')" id="filterPending" class="px-4 py-2 rounded-lg transition bg-white/20 text-purple-200">Pending</button>
+                <button onclick="setFilter('completed')" id="filterCompleted" class="px-4 py-2 rounded-lg transition bg-white/20 text-purple-200">Completed</button>
+            </div>
+        </div>
+
+        <div id="problemsList" class="space-y-4"></div>
+    </div>
+
+    <script>
+        var EASY_PROBLEMS = [
+            { name: "Two Sum", difficulty: "Easy-1", topics: ["Array", "Hash Table"] },
+            { name: "Palindrome Number", difficulty: "Easy-1", topics: ["Math"] },
+            { name: "Roman to Integer", difficulty: "Easy-1", topics: ["String", "Hash Table"] },
+            { name: "Valid Parentheses", difficulty: "Easy-1", topics: ["String", "Stack"] },
+            { name: "Merge Two Sorted Lists", difficulty: "Easy-1", topics: ["Linked List"] },
+            { name: "Remove Duplicates from Sorted Array", difficulty: "Easy-1", topics: ["Array"] },
+            { name: "Search Insert Position", difficulty: "Easy-1", topics: ["Array", "Binary Search"] },
+            { name: "Length of Last Word", difficulty: "Easy-1", topics: ["String"] },
+            { name: "Plus One", difficulty: "Easy-1", topics: ["Array", "Math"] },
+            { name: "Sqrt(x)", difficulty: "Easy-1", topics: ["Math", "Binary Search"] },
+            { name: "Climbing Stairs", difficulty: "Easy-2", topics: ["DP", "Math"] },
+            { name: "Remove Element", difficulty: "Easy-2", topics: ["Array"] },
+            { name: "Implement strStr()", difficulty: "Easy-2", topics: ["String"] },
+            { name: "Maximum Subarray", difficulty: "Easy-2", topics: ["Array", "DP"] },
+            { name: "Best Time to Buy and Sell Stock", difficulty: "Easy-2", topics: ["Array", "DP"] },
+            { name: "Single Number", difficulty: "Easy-2", topics: ["Array", "Bit Manipulation"] },
+            { name: "Linked List Cycle", difficulty: "Easy-2", topics: ["Linked List"] },
+            { name: "Min Stack", difficulty: "Easy-2", topics: ["Stack", "Design"] },
+            { name: "Intersection of Two Arrays II", difficulty: "Easy-2", topics: ["Array", "Hash Table"] },
+            { name: "Excel Sheet Column Number", difficulty: "Easy-2", topics: ["Math", "String"] },
+            { name: "Majority Element", difficulty: "Easy-3", topics: ["Array", "Hash Table"] },
+            { name: "Happy Number", difficulty: "Easy-3", topics: ["Math", "Hash Table"] },
+            { name: "Remove Linked List Elements", difficulty: "Easy-3", topics: ["Linked List"] },
+            { name: "Reverse Linked List", difficulty: "Easy-3", topics: ["Linked List"] },
+            { name: "Contains Duplicate", difficulty: "Easy-3", topics: ["Array", "Hash Table"] },
+            { name: "Invert Binary Tree", difficulty: "Easy-3", topics: ["Tree", "DFS"] },
+            { name: "Power of Two", difficulty: "Easy-3", topics: ["Math", "Bit Manipulation"] },
+            { name: "Valid Anagram", difficulty: "Easy-3", topics: ["String", "Hash Table"] },
+            { name: "Missing Number", difficulty: "Easy-3", topics: ["Array", "Math"] },
+            { name: "Move Zeroes", difficulty: "Easy-3", topics: ["Array", "Two Pointers"] },
+            { name: "Word Pattern", difficulty: "Easy-4", topics: ["Hash Table", "String"] },
+            { name: "Nim Game", difficulty: "Easy-4", topics: ["Math", "Game Theory"] },
+            { name: "Range Sum Query - Immutable", difficulty: "Easy-4", topics: ["Array", "Prefix Sum"] },
+            { name: "Power of Three", difficulty: "Easy-4", topics: ["Math"] },
+            { name: "Reverse String", difficulty: "Easy-4", topics: ["String", "Two Pointers"] },
+            { name: "Reverse Vowels of a String", difficulty: "Easy-4", topics: ["String", "Two Pointers"] },
+            { name: "Intersection of Two Arrays", difficulty: "Easy-4", topics: ["Array", "Hash Table"] },
+            { name: "Valid Perfect Square", difficulty: "Easy-4", topics: ["Math", "Binary Search"] },
+            { name: "Sum of Two Integers", difficulty: "Easy-4", topics: ["Math", "Bit Manipulation"] },
+            { name: "Find the Difference", difficulty: "Easy-4", topics: ["Hash Table", "String"] },
+            { name: "First Unique Character in a String", difficulty: "Easy-5", topics: ["Hash Table", "String"] },
+            { name: "Ransom Note", difficulty: "Easy-5", topics: ["Hash Table", "String"] },
+            { name: "Find All Numbers Disappeared in an Array", difficulty: "Easy-5", topics: ["Array"] },
+            { name: "Assign Cookies", difficulty: "Easy-5", topics: ["Array", "Greedy"] },
+            { name: "Construct the Rectangle", difficulty: "Easy-5", topics: ["Math"] },
+            { name: "Next Greater Element I", difficulty: "Easy-5", topics: ["Stack", "Hash Table"] },
+            { name: "Keyboard Row", difficulty: "Easy-5", topics: ["Array", "Hash Table"] },
+            { name: "Detect Capital", difficulty: "Easy-5", topics: ["String"] },
+            { name: "Relative Ranks", difficulty: "Easy-5", topics: ["Array", "Sorting"] },
+            { name: "Perfect Number", difficulty: "Easy-5", topics: ["Math"] }
+        ];
+
+        var MEDIUM_PROBLEMS = [
+            { name: "Add Two Numbers", difficulty: "Medium-1", topics: ["Linked List", "Math"] },
+            { name: "Longest Substring Without Repeating Characters", difficulty: "Medium-1", topics: ["String", "Sliding Window"] },
+            { name: "Reverse Integer", difficulty: "Medium-1", topics: ["Math"] },
+            { name: "3Sum", difficulty: "Medium-1", topics: ["Array", "Two Pointers"] },
+            { name: "Remove Nth Node From End of List", difficulty: "Medium-1", topics: ["Linked List"] },
+            { name: "Generate Parentheses", difficulty: "Medium-1", topics: ["String", "Backtracking"] },
+            { name: "Swap Nodes in Pairs", difficulty: "Medium-1", topics: ["Linked List"] },
+            { name: "Next Permutation", difficulty: "Medium-1", topics: ["Array"] },
+            { name: "Search in Rotated Sorted Array", difficulty: "Medium-1", topics: ["Array", "Binary Search"] },
+            { name: "Find First and Last Position of Element in Sorted Array", difficulty: "Medium-1", topics: ["Array", "Binary Search"] },
+            { name: "Combination Sum", difficulty: "Medium-2", topics: ["Array", "Backtracking"] },
+            { name: "Permutations", difficulty: "Medium-2", topics: ["Array", "Backtracking"] },
+            { name: "Rotate Image", difficulty: "Medium-2", topics: ["Array", "Matrix"] },
+            { name: "Group Anagrams", difficulty: "Medium-2", topics: ["Array", "Hash Table"] },
+            { name: "Pow(x, n)", difficulty: "Medium-2", topics: ["Math", "Recursion"] },
+            { name: "Spiral Matrix", difficulty: "Medium-2", topics: ["Array", "Matrix"] },
+            { name: "Jump Game", difficulty: "Medium-2", topics: ["Array", "Greedy"] },
+            { name: "Merge Intervals", difficulty: "Medium-2", topics: ["Array", "Sorting"] },
+            { name: "Unique Paths", difficulty: "Medium-2", topics: ["DP", "Math"] },
+            { name: "Minimum Path Sum", difficulty: "Medium-2", topics: ["Array", "DP"] },
+            { name: "Set Matrix Zeroes", difficulty: "Medium-3", topics: ["Array", "Matrix"] },
+            { name: "Sort Colors", difficulty: "Medium-3", topics: ["Array", "Two Pointers"] },
+            { name: "Word Search", difficulty: "Medium-3", topics: ["Array", "Backtracking"] },
+            { name: "Subsets", difficulty: "Medium-3", topics: ["Array", "Backtracking"] },
+            { name: "Decode Ways", difficulty: "Medium-3", topics: ["String", "DP"] },
+            { name: "Binary Tree Level Order Traversal", difficulty: "Medium-3", topics: ["Tree", "BFS"] },
+            { name: "Validate Binary Search Tree", difficulty: "Medium-3", topics: ["Tree", "DFS"] },
+            { name: "Construct Binary Tree from Preorder and Inorder", difficulty: "Medium-3", topics: ["Array", "Tree"] },
+            { name: "Binary Tree Zigzag Level Order Traversal", difficulty: "Medium-3", topics: ["Tree", "BFS"] },
+            { name: "Maximum Depth of Binary Tree", difficulty: "Medium-3", topics: ["Tree", "DFS"] },
+            { name: "Flatten Binary Tree to Linked List", difficulty: "Medium-4", topics: ["Tree", "DFS"] },
+            { name: "Populating Next Right Pointers in Each Node", difficulty: "Medium-4", topics: ["Tree", "BFS"] },
+            { name: "Word Ladder", difficulty: "Medium-4", topics: ["Hash Table", "BFS"] },
+            { name: "Longest Consecutive Sequence", difficulty: "Medium-4", topics: ["Array", "Hash Table"] },
+            { name: "Clone Graph", difficulty: "Medium-4", topics: ["Graph", "DFS"] },
+            { name: "Gas Station", difficulty: "Medium-4", topics: ["Array", "Greedy"] },
+            { name: "Single Number II", difficulty: "Medium-4", topics: ["Array", "Bit Manipulation"] },
+            { name: "Copy List with Random Pointer", difficulty: "Medium-4", topics: ["Linked List", "Hash Table"] },
+            { name: "Word Break", difficulty: "Medium-4", topics: ["String", "DP"] },
+            { name: "Linked List Cycle II", difficulty: "Medium-4", topics: ["Linked List", "Two Pointers"] }
+        ];
+
+        var HARD_PROBLEMS = [
+            { name: "Median of Two Sorted Arrays", difficulty: "Hard-1", topics: ["Array", "Binary Search"] },
+            { name: "Regular Expression Matching", difficulty: "Hard-1", topics: ["String", "DP"] },
+            { name: "Merge k Sorted Lists", difficulty: "Hard-1", topics: ["Linked List", "Heap"] },
+            { name: "Substring with Concatenation of All Words", difficulty: "Hard-1", topics: ["String", "Hash Table"] },
+            { name: "First Missing Positive", difficulty: "Hard-1", topics: ["Array", "Hash Table"] },
+            { name: "Trapping Rain Water", difficulty: "Hard-1", topics: ["Array", "Two Pointers"] },
+            { name: "Wildcard Matching", difficulty: "Hard-1", topics: ["String", "DP"] },
+            { name: "Jump Game II", difficulty: "Hard-1", topics: ["Array", "Greedy"] },
+            { name: "N-Queens", difficulty: "Hard-1", topics: ["Array", "Backtracking"] },
+            { name: "Maximum Subarray", difficulty: "Hard-1", topics: ["Array", "DP"] },
+            { name: "Minimum Window Substring", difficulty: "Hard-2", topics: ["String", "Sliding Window"] },
+            { name: "Largest Rectangle in Histogram", difficulty: "Hard-2", topics: ["Array", "Stack"] },
+            { name: "Maximal Rectangle", difficulty: "Hard-2", topics: ["Array", "DP"] },
+            { name: "Scramble String", difficulty: "Hard-2", topics: ["String", "DP"] },
+            { name: "Binary Tree Maximum Path Sum", difficulty: "Hard-2", topics: ["Tree", "DFS"] },
+            { name: "Word Ladder II", difficulty: "Hard-2", topics: ["Hash Table", "BFS"] },
+            { name: "LRU Cache", difficulty: "Hard-2", topics: ["Design", "Hash Table"] },
+            { name: "Distinct Subsequences", difficulty: "Hard-2", topics: ["String", "DP"] },
+            { name: "Best Time to Buy and Sell Stock III", difficulty: "Hard-2", topics: ["Array", "DP"] },
+            { name: "Binary Tree Postorder Traversal", difficulty: "Hard-2", topics: ["Tree", "Stack"] },
+            { name: "Palindrome Partitioning II", difficulty: "Hard-3", topics: ["String", "DP"] },
+            { name: "Word Break II", difficulty: "Hard-3", topics: ["String", "Backtracking"] },
+            { name: "Candy", difficulty: "Hard-3", topics: ["Array", "Greedy"] },
+            { name: "Edit Distance", difficulty: "Hard-3", topics: ["String", "DP"] },
+            { name: "Recover Binary Search Tree", difficulty: "Hard-3", topics: ["Tree", "DFS"] },
+            { name: "Interleaving String", difficulty: "Hard-3", topics: ["String", "DP"] },
+            { name: "Serialize and Deserialize Binary Tree", difficulty: "Hard-3", topics: ["Tree", "Design"] },
+            { name: "Sliding Window Maximum", difficulty: "Hard-3", topics: ["Array", "Queue"] },
+            { name: "Count of Smaller Numbers After Self", difficulty: "Hard-3", topics: ["Array", "Binary Search"] },
+            { name: "Burst Balloons", difficulty: "Hard-3", topics: ["Array", "DP"] }
+        ];
+
+        var allProblems = [];
+        var currentFilter = 'all';
+
+        function generateProblems() {
+            var newProblems = [];
+            var startDate = new Date('2026-01-27');
+            
+            for (var day = 1; day <= 150; day++) {
+                var currentDate = new Date(startDate);
+                currentDate.setDate(startDate.getDate() + day - 1);
+                
+                if (day <= 100) {
+                    var easyPool = EASY_PROBLEMS.filter(function(p) {
+                        var level = parseInt(p.difficulty.split('-')[1]);
+                        var dayRange = Math.ceil(day / 20);
+                        return level === dayRange;
+                    });
+                    
+                    var mediumPool = MEDIUM_PROBLEMS.filter(function(p) {
+                        var level = parseInt(p.difficulty.split('-')[1]);
+                        var dayRange = Math.ceil(day / 25);
+                        return level === dayRange;
+                    });
+                    
+                    var shuffledEasy = easyPool.slice().sort(function() { return Math.random() - 0.5; });
+                    var shuffledMedium = mediumPool.slice().sort(function() { return Math.random() - 0.5; });
+                    
+                    newProblems.push({
+                        day: day,
+                        date: currentDate.toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' }),
+                        problems: [
+                            shuffledEasy[0] || EASY_PROBLEMS[Math.floor(Math.random() * EASY_PROBLEMS.length)],
+                            shuffledEasy[1] || EASY_PROBLEMS[Math.floor(Math.random() * EASY_PROBLEMS.length)],
+                            shuffledMedium[0] || MEDIUM_PROBLEMS[Math.floor(Math.random() * MEDIUM_PROBLEMS.length)]
+                        ],
+                        completed: [false, false, false],
+                        notes: ['', '', '']
+                    });
+                } else {
+                    var adjustedDay = day - 100;
+                    var mediumPool = MEDIUM_PROBLEMS.filter(function(p) {
+                        var level = parseInt(p.difficulty.split('-')[1]);
+                        return level === 4;
+                    });
+                    
+                    var hardPool = HARD_PROBLEMS.filter(function(p) {
+                        var level = parseInt(p.difficulty.split('-')[1]);
+                        var dayRange = Math.ceil(adjustedDay / 17);
+                        return level === dayRange;
+                    });
+                    
+                    var shuffledMedium = mediumPool.slice().sort(function() { return Math.random() - 0.5; });
+                    var shuffledHard = hardPool.slice().sort(function() { return Math.random() - 0.5; });
+                    
+                    newProblems.push({
+                        day: day,
+                        date: currentDate.toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' }),
+                        problems: [
+                            shuffledMedium[0] || MEDIUM_PROBLEMS[Math.floor(Math.random() * MEDIUM_PROBLEMS.length)],
+                            shuffledHard[0] || HARD_PROBLEMS[Math.floor(Math.random() * HARD_PROBLEMS.length)]
+                        ],
+                        completed: [false, false],
+                        notes: ['', '']
+                    });
+                }
+            }
+            
+            return newProblems;
+        }
+
+        function saveToLocalStorage() {
+            localStorage.setItem('dsaProblems', JSON.stringify(allProblems));
+        }
+
+        function loadFromLocalStorage() {
+            var saved = localStorage.getItem('dsaProblems');
+            if (saved) {
+                allProblems = JSON.parse(saved);
+            } else {
+                allProblems = generateProblems();
+                saveToLocalStorage();
+            }
+        }
+
+        function regenerateProblems() {
+            if (confirm('This will generate new problems and reset all progress. Continue?')) {
+                allProblems = generateProblems();
+                saveToLocalStorage();
+                renderProblems();
+            }
+        }
+
+        function toggleComplete(dayIndex, problemIndex) {
+            allProblems[dayIndex].completed[problemIndex] = !allProblems[dayIndex].completed[problemIndex];
+            saveToLocalStorage();
+            renderProblems();
+        }
+
+        function updateNotes(dayIndex, problemIndex, note) {
+            allProblems[dayIndex].notes[problemIndex] = note;
+            saveToLocalStorage();
+        }
+
+        function setFilter(filter) {
+            currentFilter = filter;
+            document.getElementById('filterAll').className = 'px-4 py-2 rounded-lg transition ' + (filter === 'all' ? 'bg-purple-600 text-white' : 'bg-white/20 text-purple-200');
+            document.getElementById('filterPending').className = 'px-4 py-2 rounded-lg transition ' + (filter === 'pending' ? 'bg-purple-600 text-white' : 'bg-white/20 text-purple-200');
+            document.getElementById('filterCompleted').className = 'px-4 py-2 rounded-lg transition ' + (filter === 'completed' ? 'bg-purple-600 text-white' : 'bg-white/20 text-purple-200');
+            renderProblems();
+        }
+
+        function exportToCSV() {
+            var csv = 'Day,Date,Problem #,Problem Name,Difficulty,Topics,Status,Notes\n';
+            
+            allProblems.forEach(function(dayData) {
+                dayData.problems.forEach(function(problem, idx) {
+                    csv += dayData.day + ',' + dayData.date + ',' + (idx + 1) + ',"' + problem.name + '",' + problem.difficulty + ',"' + problem.topics.join(', ') + '",' + (dayData.completed[idx] ? 'Done' : 'Pending') + ',"' + dayData.notes[idx].replace(/"/g, '""') + '"\n';
+                });
+            });
+            
+            var blob = new Blob([csv], { type: 'text/csv' });
+            var url = window.URL.createObjectURL(blob);
+            var a = document.createElement('a');
+            a.href = url;
+            a.download = 'dsa_tracker_jan_may_2026.csv';
+            a.click();
+        }
+
+        function renderProblems() {
+            var filteredProblems = allProblems.filter(function(p) {
+                if (currentFilter === 'all') return true;
+                if (currentFilter === 'completed') return p.completed.every(function(c) { return c; });
+                if (currentFilter === 'pending') return p.completed.some(function(c) { return !c; });
+                return true;
+            });
+
+            var total = allProblems.reduce(function(sum, p) { return sum + p.problems.length; }, 0);
+            var completed = allProblems.reduce(function(sum, p) { return sum + p.completed.filter(function(c) { return c; }).length; }, 0);
+            
+            document.getElementById('statsCompleted').textContent = completed + '/' + total;
+            document.getElementById('statsProgress').textContent = Math.round((completed / total) * 100) + '%';
+
+            var listHTML = filteredProblems.map(function(dayData) {
+                var actualDayIndex = allProblems.indexOf(dayData);
+                var html = '<div class="bg-white/10 backdrop-blur-lg rounded-xl border border-white/20 overflow-hidden">';
+                html += '<div class="bg-gradient-to-r from-purple-600/30 to-pink-600/30 p-4 border-b border-white/20">';
+                html += '<div class="flex justify-between items-center"><div>';
+                html += '<h3 class="text-xl font-bold text-white">Day ' + dayData.day + '</h3>';
+                html += '<p class="text-purple-200 text-sm">' + dayData.date + '</p></div>';
+                html += '<div class="text-white text-sm">' + dayData.completed.filter(function(c) { return c; }).length + '/' + dayData.problems.length + ' Done</div></div></div>';
+                html += '<div class="p-4 space-y-4">';
+                
+                dayData.problems.forEach(function(problem, probIndex) {
+                    var diffClass = problem.difficulty.startsWith('Easy') ? 'bg-green-500/20 text-green-300' :
+                                  problem.difficulty.startsWith('Medium') ? 'bg-yellow-500/20 text-yellow-300' :
+                                  'bg-red-500/20 text-red-300';
+                    
+                    var checkIcon = dayData.completed[probIndex] 
+                        ? '<svg class="w-6 h-6 text-green-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10" stroke="currentColor" stroke-width="2" fill="currentColor"/><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4" stroke="white"/></svg>'
+                        : '<svg class="w-6 h-6 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10" stroke="currentColor" stroke-width="2"/></svg>';
+                    
+                    html += '<div class="bg-white/5 rounded-lg p-4 border border-white/10">';
+                    html += '<div class="flex items-start gap-3">';
+                    html += '<button onclick="toggleComplete(' + actualDayIndex + ', ' + probIndex + ')" class="mt-1 flex-shrink-0">' + checkIcon + '</button>';
+                    html += '<div class="flex-1"><div class="flex items-center gap-2 flex-wrap mb-2">';
+                    html += '<h4 class="text-lg font-semibold text-white">' + problem.name + '</h4>';
+                    html += '<span class="text-xs px-2 py-1 rounded-full ' + diffClass + '">' + problem.difficulty + '</span>';
+                    
+                    problem.topics.forEach(function(topic) {
+                        html += '<span class="text-xs px-2 py-1 rounded-full bg-purple-500/20 text-purple-300">' + topic + '</span>';
+                    });
+                    
+                    html += '</div>';
+                    html += '<textarea placeholder="Add your notes, approach, time complexity, learnings..." onblur="updateNotes(' + actualDayIndex + ', ' + probIndex + ', this.value)" class="w-full bg-white/5 border border-white/10 rounded-lg p-3 text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-purple-500 min-h-[80px]">' + dayData.notes[probIndex] + '</textarea>';
+                    html += '</div></div></div>';
+                });
+                
+                html += '</div></div>';
+                return html;
+            }).join('');
+
+            document.getElementById('problemsList').innerHTML = listHTML;
+        }
+
+        loadFromLocalStorage();
+        renderProblems();
     </script>
 </body>
 </html>
