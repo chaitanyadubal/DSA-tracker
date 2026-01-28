@@ -51,469 +51,269 @@
     </div>
 
     <script>
-        var EASY_PROBLEMS = [
-            // Easy-1 (Beginner)
-            { name: "Two Sum", difficulty: "Easy-1", topics: ["Array", "Hash Table"] },
-            { name: "Palindrome Number", difficulty: "Easy-1", topics: ["Math"] },
-            { name: "Roman to Integer", difficulty: "Easy-1", topics: ["String", "Hash Table"] },
-            { name: "Valid Parentheses", difficulty: "Easy-1", topics: ["String", "Stack"] },
-            { name: "Merge Two Sorted Lists", difficulty: "Easy-1", topics: ["Linked List"] },
-            { name: "Remove Duplicates from Sorted Array", difficulty: "Easy-1", topics: ["Array"] },
-            { name: "Search Insert Position", difficulty: "Easy-1", topics: ["Array", "Binary Search"] },
-            { name: "Length of Last Word", difficulty: "Easy-1", topics: ["String"] },
-            { name: "Plus One", difficulty: "Easy-1", topics: ["Array", "Math"] },
-            { name: "Sqrt(x)", difficulty: "Easy-1", topics: ["Math", "Binary Search"] },
-            { name: "Remove Element", difficulty: "Easy-1", topics: ["Array"] },
-            { name: "Implement strStr()", difficulty: "Easy-1", topics: ["String"] },
-            { name: "Find Index of First Occurrence", difficulty: "Easy-1", topics: ["String"] },
-            { name: "Valid Palindrome", difficulty: "Easy-1", topics: ["String", "Two Pointers"] },
-            { name: "Pascal's Triangle", difficulty: "Easy-1", topics: ["Array", "DP"] },
-            { name: "Binary Search", difficulty: "Easy-1", topics: ["Array", "Binary Search"] },
-            { name: "Reverse Bits", difficulty: "Easy-1", topics: ["Bit Manipulation"] },
-            { name: "Number of 1 Bits", difficulty: "Easy-1", topics: ["Bit Manipulation"] },
-            { name: "Counting Bits", difficulty: "Easy-1", topics: ["Bit Manipulation", "DP"] },
-            { name: "Isomorphic Strings", difficulty: "Easy-1", topics: ["Hash Table", "String"] },
-            
-            // Easy-2 (Elementary)
-            { name: "Climbing Stairs", difficulty: "Easy-2", topics: ["DP", "Math"] },
-            { name: "Maximum Subarray", difficulty: "Easy-2", topics: ["Array", "DP"] },
-            { name: "Best Time to Buy and Sell Stock", difficulty: "Easy-2", topics: ["Array", "DP"] },
-            { name: "Single Number", difficulty: "Easy-2", topics: ["Array", "Bit Manipulation"] },
-            { name: "Linked List Cycle", difficulty: "Easy-2", topics: ["Linked List"] },
-            { name: "Min Stack", difficulty: "Easy-2", topics: ["Stack", "Design"] },
-            { name: "Intersection of Two Arrays II", difficulty: "Easy-2", topics: ["Array", "Hash Table"] },
-            { name: "Excel Sheet Column Number", difficulty: "Easy-2", topics: ["Math", "String"] },
-            { name: "Factorial Trailing Zeroes", difficulty: "Easy-2", topics: ["Math"] },
-            { name: "Rotate Array", difficulty: "Easy-2", topics: ["Array"] },
-            { name: "House Robber", difficulty: "Easy-2", topics: ["Array", "DP"] },
-            { name: "Number of Islands", difficulty: "Easy-2", topics: ["Array", "DFS"] },
-            { name: "Reverse Bits", difficulty: "Easy-2", topics: ["Bit Manipulation"] },
-            { name: "Count Primes", difficulty: "Easy-2", topics: ["Math"] },
-            { name: "Ugly Number", difficulty: "Easy-2", topics: ["Math"] },
-            { name: "Add Digits", difficulty: "Easy-2", topics: ["Math"] },
-            { name: "Binary Tree Paths", difficulty: "Easy-2", topics: ["Tree", "DFS"] },
-            { name: "Add Two Numbers", difficulty: "Easy-2", topics: ["Linked List", "Math"] },
-            { name: "Summary Ranges", difficulty: "Easy-2", topics: ["Array"] },
-            { name: "Symmetric Tree", difficulty: "Easy-2", topics: ["Tree", "DFS"] },
-            
-            // Easy-3 (Intermediate)
-            { name: "Majority Element", difficulty: "Easy-3", topics: ["Array", "Hash Table"] },
-            { name: "Happy Number", difficulty: "Easy-3", topics: ["Math", "Hash Table"] },
-            { name: "Remove Linked List Elements", difficulty: "Easy-3", topics: ["Linked List"] },
-            { name: "Reverse Linked List", difficulty: "Easy-3", topics: ["Linked List"] },
-            { name: "Contains Duplicate", difficulty: "Easy-3", topics: ["Array", "Hash Table"] },
-            { name: "Invert Binary Tree", difficulty: "Easy-3", topics: ["Tree", "DFS"] },
-            { name: "Power of Two", difficulty: "Easy-3", topics: ["Math", "Bit Manipulation"] },
-            { name: "Valid Anagram", difficulty: "Easy-3", topics: ["String", "Hash Table"] },
-            { name: "Missing Number", difficulty: "Easy-3", topics: ["Array", "Math"] },
-            { name: "Move Zeroes", difficulty: "Easy-3", topics: ["Array", "Two Pointers"] },
-            { name: "Delete Node in a Linked List", difficulty: "Easy-3", topics: ["Linked List"] },
-            { name: "Palindrome Linked List", difficulty: "Easy-3", topics: ["Linked List", "Two Pointers"] },
-            { name: "Lowest Common Ancestor of BST", difficulty: "Easy-3", topics: ["Tree", "BST"] },
-            { name: "Valid BST", difficulty: "Easy-3", topics: ["Tree", "DFS"] },
-            { name: "Path Sum", difficulty: "Easy-3", topics: ["Tree", "DFS"] },
-            { name: "Minimum Depth of Binary Tree", difficulty: "Easy-3", topics: ["Tree", "BFS"] },
-            { name: "Balanced Binary Tree", difficulty: "Easy-3", topics: ["Tree", "DFS"] },
-            { name: "Same Tree", difficulty: "Easy-3", topics: ["Tree", "DFS"] },
-            { name: "Maximum Depth of Binary Tree", difficulty: "Easy-3", topics: ["Tree", "DFS"] },
-            { name: "Convert Sorted Array to BST", difficulty: "Easy-3", topics: ["Tree", "Binary Search"] },
-            
-            // Easy-4 (Advanced)
-            { name: "Word Pattern", difficulty: "Easy-4", topics: ["Hash Table", "String"] },
-            { name: "Nim Game", difficulty: "Easy-4", topics: ["Math", "Game Theory"] },
-            { name: "Range Sum Query - Immutable", difficulty: "Easy-4", topics: ["Array", "Prefix Sum"] },
-            { name: "Power of Three", difficulty: "Easy-4", topics: ["Math"] },
-            { name: "Reverse String", difficulty: "Easy-4", topics: ["String", "Two Pointers"] },
-            { name: "Reverse Vowels of a String", difficulty: "Easy-4", topics: ["String", "Two Pointers"] },
-            { name: "Intersection of Two Arrays", difficulty: "Easy-4", topics: ["Array", "Hash Table"] },
-            { name: "Valid Perfect Square", difficulty: "Easy-4", topics: ["Math", "Binary Search"] },
-            { name: "Sum of Two Integers", difficulty: "Easy-4", topics: ["Math", "Bit Manipulation"] },
-            { name: "Find the Difference", difficulty: "Easy-4", topics: ["Hash Table", "String"] },
-            { name: "Third Maximum Number", difficulty: "Easy-4", topics: ["Array"] },
-            { name: "Is Subsequence", difficulty: "Easy-4", topics: ["String", "Two Pointers"] },
-            { name: "Fizz Buzz", difficulty: "Easy-4", topics: ["Math", "String"] },
-            { name: "Arranging Coins", difficulty: "Easy-4", topics: ["Math", "Binary Search"] },
-            { name: "Find All Duplicates in Array", difficulty: "Easy-4", topics: ["Array"] },
-            { name: "Hamming Distance", difficulty: "Easy-4", topics: ["Bit Manipulation"] },
-            { name: "Number Complement", difficulty: "Easy-4", topics: ["Bit Manipulation"] },
-            { name: "License Key Formatting", difficulty: "Easy-4", topics: ["String"] },
-            { name: "Max Consecutive Ones", difficulty: "Easy-4", topics: ["Array"] },
-            { name: "Find Mode in BST", difficulty: "Easy-4", topics: ["Tree", "BST"] },
-            
-            // Easy-5 (Expert)
-            { name: "First Unique Character in a String", difficulty: "Easy-5", topics: ["Hash Table", "String"] },
-            { name: "Ransom Note", difficulty: "Easy-5", topics: ["Hash Table", "String"] },
-            { name: "Find All Numbers Disappeared in an Array", difficulty: "Easy-5", topics: ["Array"] },
-            { name: "Assign Cookies", difficulty: "Easy-5", topics: ["Array", "Greedy"] },
-            { name: "Construct the Rectangle", difficulty: "Easy-5", topics: ["Math"] },
-            { name: "Next Greater Element I", difficulty: "Easy-5", topics: ["Stack", "Hash Table"] },
-            { name: "Keyboard Row", difficulty: "Easy-5", topics: ["Array", "Hash Table"] },
-            { name: "Detect Capital", difficulty: "Easy-5", topics: ["String"] },
-            { name: "Relative Ranks", difficulty: "Easy-5", topics: ["Array", "Sorting"] },
-            { name: "Perfect Number", difficulty: "Easy-5", topics: ["Math"] },
-            { name: "Base 7", difficulty: "Easy-5", topics: ["Math"] },
-            { name: "Fibonacci Number", difficulty: "Easy-5", topics: ["Math", "DP"] },
-            { name: "Longest Harmonious Subsequence", difficulty: "Easy-5", topics: ["Array", "Hash Table"] },
-            { name: "Diameter of Binary Tree", difficulty: "Easy-5", topics: ["Tree", "DFS"] },
-            { name: "Merge Two Binary Trees", difficulty: "Easy-5", topics: ["Tree", "DFS"] },
-            { name: "Maximum Average Subarray I", difficulty: "Easy-5", topics: ["Array", "Sliding Window"] },
-            { name: "Set Mismatch", difficulty: "Easy-5", topics: ["Array", "Hash Table"] },
-            { name: "Two Sum IV - Input is a BST", difficulty: "Easy-5", topics: ["Tree", "Hash Table"] },
-            { name: "Valid Palindrome II", difficulty: "Easy-5", topics: ["String", "Two Pointers"] },
-            { name: "Longest Continuous Increasing Subsequence", difficulty: "Easy-5", topics: ["Array"] }
-        ];
-
-        var MEDIUM_PROBLEMS = [
-            // Medium-1 (Beginner)
-            { name: "Add Two Numbers", difficulty: "Medium-1", topics: ["Linked List", "Math"] },
-            { name: "Longest Substring Without Repeating Characters", difficulty: "Medium-1", topics: ["String", "Sliding Window"] },
-            { name: "Reverse Integer", difficulty: "Medium-1", topics: ["Math"] },
-            { name: "3Sum", difficulty: "Medium-1", topics: ["Array", "Two Pointers"] },
-            { name: "Remove Nth Node From End of List", difficulty: "Medium-1", topics: ["Linked List"] },
-            { name: "Generate Parentheses", difficulty: "Medium-1", topics: ["String", "Backtracking"] },
-            { name: "Swap Nodes in Pairs", difficulty: "Medium-1", topics: ["Linked List"] },
-            { name: "Next Permutation", difficulty: "Medium-1", topics: ["Array"] },
-            { name: "Search in Rotated Sorted Array", difficulty: "Medium-1", topics: ["Array", "Binary Search"] },
-            { name: "Find First and Last Position in Sorted Array", difficulty: "Medium-1", topics: ["Array", "Binary Search"] },
-            { name: "Valid Sudoku", difficulty: "Medium-1", topics: ["Array", "Hash Table"] },
-            { name: "Count and Say", difficulty: "Medium-1", topics: ["String"] },
-            { name: "Combination Sum II", difficulty: "Medium-1", topics: ["Array", "Backtracking"] },
-            { name: "Multiply Strings", difficulty: "Medium-1", topics: ["Math", "String"] },
-            { name: "Permutation Sequence", difficulty: "Medium-1", topics: ["Math", "Backtracking"] },
-            { name: "Rotate List", difficulty: "Medium-1", topics: ["Linked List"] },
-            { name: "Unique Paths II", difficulty: "Medium-1", topics: ["Array", "DP"] },
-            { name: "Plus One", difficulty: "Medium-1", topics: ["Array", "Math"] },
-            { name: "Add Binary", difficulty: "Medium-1", topics: ["Math", "String"] },
-            { name: "Text Justification", difficulty: "Medium-1", topics: ["Array", "String"] },
-            { name: "Remove Duplicates from Sorted List II", difficulty: "Medium-1", topics: ["Linked List"] },
-            { name: "Partition List", difficulty: "Medium-1", topics: ["Linked List"] },
-            { name: "Reverse Linked List II", difficulty: "Medium-1", topics: ["Linked List"] },
-            { name: "Restore IP Addresses", difficulty: "Medium-1", topics: ["String", "Backtracking"] },
-            { name: "Different Ways to Add Parentheses", difficulty: "Medium-1", topics: ["String", "DP"] },
-            
-            // Medium-2 (Elementary)
-            { name: "Combination Sum", difficulty: "Medium-2", topics: ["Array", "Backtracking"] },
-            { name: "Permutations", difficulty: "Medium-2", topics: ["Array", "Backtracking"] },
-            { name: "Rotate Image", difficulty: "Medium-2", topics: ["Array", "Matrix"] },
-            { name: "Group Anagrams", difficulty: "Medium-2", topics: ["Array", "Hash Table"] },
-            { name: "Pow(x, n)", difficulty: "Medium-2", topics: ["Math", "Recursion"] },
-            { name: "Spiral Matrix", difficulty: "Medium-2", topics: ["Array", "Matrix"] },
-            { name: "Jump Game", difficulty: "Medium-2", topics: ["Array", "Greedy"] },
-            { name: "Merge Intervals", difficulty: "Medium-2", topics: ["Array", "Sorting"] },
-            { name: "Unique Paths", difficulty: "Medium-2", topics: ["DP", "Math"] },
-            { name: "Minimum Path Sum", difficulty: "Medium-2", topics: ["Array", "DP"] },
-            { name: "Search a 2D Matrix", difficulty: "Medium-2", topics: ["Array", "Binary Search"] },
-            { name: "Simplify Path", difficulty: "Medium-2", topics: ["String", "Stack"] },
-            { name: "Edit Distance", difficulty: "Medium-2", topics: ["String", "DP"] },
-            { name: "Minimum Window Substring", difficulty: "Medium-2", topics: ["String", "Sliding Window"] },
-            { name: "Combinations", difficulty: "Medium-2", topics: ["Backtracking"] },
-            { name: "Subsets", difficulty: "Medium-2", topics: ["Array", "Backtracking"] },
-            { name: "Word Search", difficulty: "Medium-2", topics: ["Array", "Backtracking"] },
-            { name: "Remove Duplicates from Sorted Array II", difficulty: "Medium-2", topics: ["Array"] },
-            { name: "Search in Rotated Sorted Array II", difficulty: "Medium-2", topics: ["Array", "Binary Search"] },
-            { name: "Gray Code", difficulty: "Medium-2", topics: ["Math", "Backtracking"] },
-            { name: "Subsets II", difficulty: "Medium-2", topics: ["Array", "Backtracking"] },
-            { name: "Decode Ways", difficulty: "Medium-2", topics: ["String", "DP"] },
-            { name: "Reverse Nodes in k-Group", difficulty: "Medium-2", topics: ["Linked List"] },
-            { name: "Divide Two Integers", difficulty: "Medium-2", topics: ["Math", "Binary Search"] },
-            { name: "Substring with Concatenation of All Words", difficulty: "Medium-2", topics: ["String", "Hash Table"] },
-            
-            // Medium-3 (Intermediate)
-            { name: "Set Matrix Zeroes", difficulty: "Medium-3", topics: ["Array", "Matrix"] },
-            { name: "Sort Colors", difficulty: "Medium-3", topics: ["Array", "Two Pointers"] },
-            { name: "Binary Tree Level Order Traversal", difficulty: "Medium-3", topics: ["Tree", "BFS"] },
-            { name: "Validate Binary Search Tree", difficulty: "Medium-3", topics: ["Tree", "DFS"] },
-            { name: "Construct Binary Tree from Preorder and Inorder", difficulty: "Medium-3", topics: ["Array", "Tree"] },
-            { name: "Binary Tree Zigzag Level Order Traversal", difficulty: "Medium-3", topics: ["Tree", "BFS"] },
-            { name: "Construct Binary Tree from Inorder and Postorder", difficulty: "Medium-3", topics: ["Array", "Tree"] },
-            { name: "Convert Sorted List to BST", difficulty: "Medium-3", topics: ["Linked List", "Tree"] },
-            { name: "Binary Tree Level Order Traversal II", difficulty: "Medium-3", topics: ["Tree", "BFS"] },
-            { name: "Triangle", difficulty: "Medium-3", topics: ["Array", "DP"] },
-            { name: "Best Time to Buy and Sell Stock II", difficulty: "Medium-3", topics: ["Array", "Greedy"] },
-            { name: "Pascal's Triangle II", difficulty: "Medium-3", topics: ["Array", "DP"] },
-            { name: "Populating Next Right Pointers", difficulty: "Medium-3", topics: ["Tree", "BFS"] },
-            { name: "Sum Root to Leaf Numbers", difficulty: "Medium-3", topics: ["Tree", "DFS"] },
-            { name: "Surrounded Regions", difficulty: "Medium-3", topics: ["Array", "DFS"] },
-            { name: "Longest Consecutive Sequence", difficulty: "Medium-3", topics: ["Array", "Hash Table"] },
-            { name: "Clone Graph", difficulty: "Medium-3", topics: ["Graph", "DFS"] },
-            { name: "Word Break", difficulty: "Medium-3", topics: ["String", "DP"] },
-            { name: "Linked List Cycle II", difficulty: "Medium-3", topics: ["Linked List", "Two Pointers"] },
-            { name: "Reorder List", difficulty: "Medium-3", topics: ["Linked List"] },
-            { name: "Binary Tree Preorder Traversal", difficulty: "Medium-3", topics: ["Tree", "Stack"] },
-            { name: "Binary Tree Inorder Traversal", difficulty: "Medium-3", topics: ["Tree", "Stack"] },
-            { name: "Binary Tree Postorder Traversal", difficulty: "Medium-3", topics: ["Tree", "Stack"] },
-            { name: "LRU Cache", difficulty: "Medium-3", topics: ["Design", "Hash Table"] },
-            { name: "Insertion Sort List", difficulty: "Medium-3", topics: ["Linked List", "Sorting"] },
-            
-            // Medium-4 (Advanced)
-            { name: "Flatten Binary Tree to Linked List", difficulty: "Medium-4", topics: ["Tree", "DFS"] },
-            { name: "Word Ladder", difficulty: "Medium-4", topics: ["Hash Table", "BFS"] },
-            { name: "Gas Station", difficulty: "Medium-4", topics: ["Array", "Greedy"] },
-            { name: "Single Number II", difficulty: "Medium-4", topics: ["Array", "Bit Manipulation"] },
-            { name: "Copy List with Random Pointer", difficulty: "Medium-4", topics: ["Linked List", "Hash Table"] },
-            { name: "Sort List", difficulty: "Medium-4", topics: ["Linked List", "Sorting"] },
-            { name: "Evaluate Reverse Polish Notation", difficulty: "Medium-4", topics: ["Array", "Stack"] },
-            { name: "Reverse Words in a String", difficulty: "Medium-4", topics: ["String"] },
-            { name: "Maximum Product Subarray", difficulty: "Medium-4", topics: ["Array", "DP"] },
-            { name: "Find Minimum in Rotated Sorted Array", difficulty: "Medium-4", topics: ["Array", "Binary Search"] },
-            { name: "Find Peak Element", difficulty: "Medium-4", topics: ["Array", "Binary Search"] },
-            { name: "Compare Version Numbers", difficulty: "Medium-4", topics: ["String"] },
-            { name: "Fraction to Recurring Decimal", difficulty: "Medium-4", topics: ["Math", "Hash Table"] },
-            { name: "Two Sum II", difficulty: "Medium-4", topics: ["Array", "Two Pointers"] },
-            { name: "Excel Sheet Column Title", difficulty: "Medium-4", topics: ["Math", "String"] },
-            { name: "Majority Element II", difficulty: "Medium-4", topics: ["Array"] },
-            { name: "Kth Largest Element in Array", difficulty: "Medium-4", topics: ["Array", "Heap"] },
-            { name: "Maximal Square", difficulty: "Medium-4", topics: ["Array", "DP"] },
-            { name: "Contains Duplicate II", difficulty: "Medium-4", topics: ["Array", "Hash Table"] },
-            { name: "Contains Duplicate III", difficulty: "Medium-4", topics: ["Array", "Sliding Window"] },
-            { name: "Rectangle Area", difficulty: "Medium-4", topics: ["Math", "Geometry"] },
-            { name: "Basic Calculator", difficulty: "Medium-4", topics: ["Math", "Stack"] },
-            { name: "Implement Trie", difficulty: "Medium-4", topics: ["Design", "Trie"] },
-            { name: "Course Schedule", difficulty: "Medium-4", topics: ["Graph", "Topological Sort"] },
-            { name: "Course Schedule II", difficulty: "Medium-4", topics: ["Graph", "Topological Sort"] }
-        ];
-
-        var HARD_PROBLEMS = [
-            // Hard-1 (Beginner)
-            { name: "Median of Two Sorted Arrays", difficulty: "Hard-1", topics: ["Array", "Binary Search"] },
-            { name: "Regular Expression Matching", difficulty: "Hard-1", topics: ["String", "DP"] },
-            { name: "Merge k Sorted Lists", difficulty: "Hard-1", topics: ["Linked List", "Heap"] },
-            { name: "Substring with Concatenation of All Words", difficulty: "Hard-1", topics: ["String", "Hash Table"] },
-            { name: "First Missing Positive", difficulty: "Hard-1", topics: ["Array", "Hash Table"] },
-            { name: "Trapping Rain Water", difficulty: "Hard-1", topics: ["Array", "Two Pointers"] },
-            { name: "Wildcard Matching", difficulty: "Hard-1", topics: ["String", "DP"] },
-            { name: "Jump Game II", difficulty: "Hard-1", topics: ["Array", "Greedy"] },
-            { name: "N-Queens", difficulty: "Hard-1", topics: ["Array", "Backtracking"] },
-            { name: "N-Queens II", difficulty: "Hard-1", topics: ["Backtracking"] },
-            { name: "Insert Interval", difficulty: "Hard-1", topics: ["Array"] },
-            { name: "Spiral Matrix II", difficulty: "Hard-1", topics: ["Array", "Matrix"] },
-            { name: "Permutation Sequence", difficulty: "Hard-1", topics: ["Math", "Backtracking"] },
-            { name: "Valid Number", difficulty: "Hard-1", topics: ["String"] },
-            { name: "Text Justification", difficulty: "Hard-1", topics: ["Array", "String"] },
-            { name: "Climbing Stairs", difficulty: "Hard-1", topics: ["Math", "DP"] },
-            { name: "Simplify Path", difficulty: "Hard-1", topics: ["String", "Stack"] },
-            
-            // Hard-2 (Intermediate)
-            { name: "Minimum Window Substring", difficulty: "Hard-2", topics: ["String", "Sliding Window"] },
-            { name: "Largest Rectangle in Histogram", difficulty: "Hard-2", topics: ["Array", "Stack"] },
-            { name: "Maximal Rectangle", difficulty: "Hard-2", topics: ["Array", "DP"] },
-            { name: "Scramble String", difficulty: "Hard-2", topics: ["String", "DP"] },
-            { name: "Binary Tree Maximum Path Sum", difficulty: "Hard-2", topics: ["Tree", "DFS"] },
-            { name: "Word Ladder II", difficulty: "Hard-2", topics: ["Hash Table", "BFS"] },
-            { name: "Distinct Subsequences", difficulty: "Hard-2", topics: ["String", "DP"] },
-            { name: "Best Time to Buy and Sell Stock III", difficulty: "Hard-2", topics: ["Array", "DP"] },
-            { name: "Best Time to Buy and Sell Stock IV", difficulty: "Hard-2", topics: ["Array", "DP"] },
-            { name: "Dungeon Game", difficulty: "Hard-2", topics: ["Array", "DP"] },
-            { name: "Longest Valid Parentheses", difficulty: "Hard-2", topics: ["String", "Stack"] },
-            { name: "Sudoku Solver", difficulty: "Hard-2", topics: ["Array", "Backtracking"] },
-            { name: "Count of Smaller After Self", difficulty: "Hard-2", topics: ["Array", "Binary Search"] },
-            { name: "Reverse Nodes in k-Group", difficulty: "Hard-2", topics: ["Linked List"] },
-            { name: "Remove Invalid Parentheses", difficulty: "Hard-2", topics: ["String", "BFS"] },
-            { name: "Concatenated Words", difficulty: "Hard-2", topics: ["Array", "DP"] },
-            { name: "Splitting Array", difficulty: "Hard-2", topics: ["Array", "DP"] },
-            
-            // Hard-3 (Advanced)
-            { name: "Palindrome Partitioning II", difficulty: "Hard-3", topics: ["String", "DP"] },
-            { name: "Word Break II", difficulty: "Hard-3", topics: ["String", "Backtracking"] },
-            { name: "Candy", difficulty: "Hard-3", topics: ["Array", "Greedy"] },
-            { name: "Edit Distance", difficulty: "Hard-3", topics: ["String", "DP"] },
-            { name: "Recover Binary Search Tree", difficulty: "Hard-3", topics: ["Tree", "DFS"] },
-            { name: "Interleaving String", difficulty: "Hard-3", topics: ["String", "DP"] },
-            { name: "Serialize and Deserialize Binary Tree", difficulty: "Hard-3", topics: ["Tree", "Design"] },
-            { name: "Sliding Window Maximum", difficulty: "Hard-3", topics: ["Array", "Queue"] },
-            { name: "Burst Balloons", difficulty: "Hard-3", topics: ["Array", "DP"] },
-            { name: "Max Sum of Rectangle No Larger Than K", difficulty: "Hard-3", topics: ["Array", "DP"] },
-            { name: "Self Crossing", difficulty: "Hard-3", topics: ["Math"] },
-            { name: "Create Maximum Number", difficulty: "Hard-3", topics: ["Array", "Stack"] },
-            { name: "Count of Range Sum", difficulty: "Hard-3", topics: ["Array", "Binary Search"] },
-            { name: "Odd Even Jump", difficulty: "Hard-3", topics: ["Array", "DP"] },
-            { name: "Shortest Palindrome", difficulty: "Hard-3", topics: ["String"] },
-            { name: "Basic Calculator III", difficulty: "Hard-3", topics: ["Math", "Stack"] },
-            { name: "The Skyline Problem", difficulty: "Hard-3", topics: ["Array", "Heap"] },
-            { name: "Russian Doll Envelopes", difficulty: "Hard-3", topics: ["Array", "DP"] },
-            { name: "Frog Jump", difficulty: "Hard-3", topics: ["Array", "DP"] },
-            { name: "Split Array Largest Sum", difficulty: "Hard-3", topics: ["Array", "Binary Search"] },
-            { name: "Decode Ways II", difficulty: "Hard-3", topics: ["String", "DP"] },
-            { name: "Minimum Number of Refueling Stops", difficulty: "Hard-3", topics: ["Array", "Heap"] },
-            { name: "Super Egg Drop", difficulty: "Hard-3", topics: ["Math", "DP"] },
-            { name: "Unique Paths III", difficulty: "Hard-3", topics: ["Array", "Backtracking"] },
-            { name: "Shortest Path Visiting All Nodes", difficulty: "Hard-3", topics: ["Graph", "BFS"] },
-            { name: "Stickers to Spell Word", difficulty: "Hard-3", topics: ["String", "DP"] },
-            { name: "Freedom Trail", difficulty: "Hard-3", topics: ["String", "DP"] },
-            { name: "Zuma Game", difficulty: "Hard-3", topics: ["String", "BFS"] },
-            { name: "Cherry Pickup", difficulty: "Hard-3", topics: ["Array", "DP"] },
-            { name: "Network Delay Time", difficulty: "Hard-3", topics: ["Graph", "Heap"] }
-        ];
+        // Real LeetCode problems - 450 unique problems to cover 150 days
+        var PROBLEM_POOL = {
+            easy: [
+                "Two Sum", "Palindrome Number", "Roman to Integer", "Longest Common Prefix", "Valid Parentheses",
+                "Merge Two Sorted Lists", "Remove Duplicates from Sorted Array", "Remove Element", 
+                "Find the Index of the First Occurrence in a String", "Search Insert Position", "Length of Last Word",
+                "Plus One", "Add Binary", "Sqrt(x)", "Climbing Stairs", "Remove Duplicates from Sorted List",
+                "Merge Sorted Array", "Binary Tree Inorder Traversal", "Same Tree", "Symmetric Tree",
+                "Maximum Depth of Binary Tree", "Convert Sorted Array to Binary Search Tree", "Balanced Binary Tree",
+                "Minimum Depth of Binary Tree", "Path Sum", "Pascal's Triangle", "Pascal's Triangle II",
+                "Best Time to Buy and Sell Stock", "Valid Palindrome", "Single Number", "Linked List Cycle",
+                "Binary Tree Preorder Traversal", "Binary Tree Postorder Traversal", "Intersection of Two Linked Lists",
+                "Excel Sheet Column Title", "Majority Element", "Excel Sheet Column Number", "Reverse Bits",
+                "Number of 1 Bits", "Happy Number", "Remove Linked List Elements", "Isomorphic Strings",
+                "Reverse Linked List", "Contains Duplicate", "Contains Duplicate II", "Implement Stack using Queues",
+                "Invert Binary Tree", "Summary Ranges", "Power of Two", "Implement Queue using Stacks",
+                "Palindrome Linked List", "Valid Anagram", "Missing Number", "Move Zeroes", "Word Pattern",
+                "Nim Game", "Range Sum Query - Immutable", "Power of Three", "Counting Bits", "Power of Four",
+                "Reverse String", "Reverse Vowels of a String", "Intersection of Two Arrays",
+                "Intersection of Two Arrays II", "Valid Perfect Square", "Sum of Two Integers", 
+                "First Unique Character in a String", "Find the Difference", "Is Subsequence", "Binary Watch",
+                "Sum of Left Leaves", "Convert a Number to Hexadecimal", "Longest Palindrome", "Fizz Buzz",
+                "Third Maximum Number", "Add Strings", "Number of Segments in a String", "Arranging Coins",
+                "Find All Numbers Disappeared in an Array", "Assign Cookies", "Repeated Substring Pattern",
+                "Hamming Distance", "Island Perimeter", "Number Complement", "License Key Formatting",
+                "Max Consecutive Ones", "Construct the Rectangle", "Keyboard Row", "Next Greater Element I",
+                "Base 7", "Relative Ranks", "Perfect Number", "Detect Capital", "Fibonacci Number",
+                "Reverse String II", "Diameter of Binary Tree", "Student Attendance Record I",
+                "Reverse Words in a String III", "Maximum Depth of N-ary Tree", "Array Partition",
+                "Binary Tree Tilt", "Reshape the Matrix", "Subtree of Another Tree", "Distribute Candies",
+                "N-ary Tree Preorder Traversal", "N-ary Tree Postorder Traversal", "Longest Harmonious Subsequence",
+                "Range Addition II", "Minimum Index Sum of Two Lists", "Can Place Flowers",
+                "Merge Two Binary Trees", "Maximum Product of Three Numbers", "Average of Levels in Binary Tree",
+                "Maximum Average Subarray I", "Set Mismatch", "Two Sum IV - Input is a BST",
+                "Robot Return to Origin", "Image Smoother", "Second Minimum Node In a Binary Tree",
+                "Longest Continuous Increasing Subsequence", "Valid Palindrome II", "Baseball Game",
+                "Binary Number with Alternating Bits", "Count Binary Substrings", "Degree of an Array",
+                "Search in a Binary Search Tree", "Kth Largest Element in a Stream", "Binary Search",
+                "Design HashSet", "Design HashMap", "To Lower Case", "1-bit and 2-bit Characters",
+                "Find Pivot Index", "Self Dividing Numbers", "Flood Fill", "Find Smallest Letter Greater Than Target",
+                "Min Cost Climbing Stairs", "Largest Number At Least Twice of Others", "Shortest Completing Word",
+                "Prime Number of Set Bits in Binary Representation", "Toeplitz Matrix", "Jewels and Stones",
+                "Minimum Distance Between BST Nodes", "Rotate String", "Unique Morse Code Words",
+                "Number of Lines To Write String", "Largest Triangle Area", "Most Common Word",
+                "Shortest Distance to a Character", "Goat Latin", "Positions of Large Groups",
+                "Flipping an Image", "Rectangle Overlap", "Backspace String Compare", "Buddy Strings",
+                "Lemonade Change", "Transpose Matrix", "Binary Gap", "Leaf-Similar Trees",
+                "Middle of the Linked List", "Projection Area of 3D Shapes", "Uncommon Words from Two Sentences",
+                "Fair Candy Swap", "Surface Area of 3D Shapes", "Monotonic Array", "Increasing Order Search Tree"
+            ],
+            medium: [
+                "Add Two Numbers", "Longest Substring Without Repeating Characters", "Longest Palindromic Substring",
+                "Zigzag Conversion", "Reverse Integer", "String to Integer (atoi)", "Container With Most Water",
+                "Integer to Roman", "3Sum", "3Sum Closest", "Letter Combinations of a Phone Number", "4Sum",
+                "Remove Nth Node From End of List", "Generate Parentheses", "Swap Nodes in Pairs",
+                "Divide Two Integers", "Next Permutation", "Search in Rotated Sorted Array",
+                "Find First and Last Position of Element in Sorted Array", "Valid Sudoku", "Count and Say",
+                "Combination Sum", "Combination Sum II", "Multiply Strings", "Jump Game II", "Permutations",
+                "Permutations II", "Rotate Image", "Group Anagrams", "Pow(x, n)", "Maximum Subarray",
+                "Spiral Matrix", "Jump Game", "Merge Intervals", "Insert Interval", "Spiral Matrix II",
+                "Rotate List", "Unique Paths", "Unique Paths II", "Minimum Path Sum", "Simplify Path",
+                "Edit Distance", "Set Matrix Zeroes", "Search a 2D Matrix", "Sort Colors", "Combinations",
+                "Subsets", "Word Search", "Remove Duplicates from Sorted Array II", "Search in Rotated Sorted Array II",
+                "Remove Duplicates from Sorted List II", "Partition List", "Gray Code", "Subsets II",
+                "Decode Ways", "Reverse Linked List II", "Restore IP Addresses", "Unique Binary Search Trees II",
+                "Unique Binary Search Trees", "Interleaving String", "Validate Binary Search Tree",
+                "Binary Tree Level Order Traversal", "Binary Tree Zigzag Level Order Traversal",
+                "Construct Binary Tree from Preorder and Inorder Traversal",
+                "Construct Binary Tree from Inorder and Postorder Traversal",
+                "Binary Tree Level Order Traversal II", "Convert Sorted List to Binary Search Tree",
+                "Path Sum II", "Flatten Binary Tree to Linked List", "Populating Next Right Pointers in Each Node",
+                "Populating Next Right Pointers in Each Node II", "Triangle", "Best Time to Buy and Sell Stock II",
+                "Longest Consecutive Sequence", "Sum Root to Leaf Numbers", "Surrounded Regions",
+                "Palindrome Partitioning", "Clone Graph", "Gas Station", "Single Number II",
+                "Copy List with Random Pointer", "Word Break", "Linked List Cycle II", "Reorder List",
+                "LRU Cache", "Insertion Sort List", "Sort List", "Evaluate Reverse Polish Notation",
+                "Reverse Words in a String", "Maximum Product Subarray", "Find Minimum in Rotated Sorted Array",
+                "Min Stack", "Find Peak Element", "Compare Version Numbers", "Fraction to Recurring Decimal",
+                "Two Sum II - Input Array Is Sorted", "Factorial Trailing Zeroes", "Binary Search Tree Iterator",
+                "Largest Number", "Repeated DNA Sequences", "Rotate Array", "House Robber",
+                "Binary Tree Right Side View", "Number of Islands", "Bitwise AND of Numbers Range",
+                "Count Primes", "Course Schedule", "Implement Trie (Prefix Tree)", "Minimum Size Subarray Sum",
+                "Course Schedule II", "Design Add and Search Words Data Structure", "House Robber II",
+                "Kth Largest Element in an Array", "Combination Sum III", "Maximal Square", "Rectangle Area",
+                "Basic Calculator II", "Majority Element II", "Kth Smallest Element in a BST",
+                "Lowest Common Ancestor of a Binary Search Tree", "Lowest Common Ancestor of a Binary Tree",
+                "Delete Node in a Linked List", "Product of Array Except Self", "Search a 2D Matrix II",
+                "Different Ways to Add Parentheses", "Ugly Number II", "Paint House", "H-Index", "H-Index II",
+                "Paint Fence", "Perfect Squares", "Wiggle Sort", "Peeking Iterator", "Find the Duplicate Number",
+                "Game of Life", "Longest Increasing Subsequence", "Range Sum Query 2D - Immutable",
+                "Additive Number", "Range Sum Query - Mutable", "Best Time to Buy and Sell Stock with Cooldown",
+                "Minimum Height Trees", "Super Ugly Number", "Remove Duplicate Letters",
+                "Maximum Product of Word Lengths", "Bulb Switcher", "Coin Change", "Wiggle Sort II",
+                "Odd Even Linked List", "Increasing Triplet Subsequence", "House Robber III", "Integer Break",
+                "Top K Frequent Elements", "Design Tic-Tac-Toe", "Count Numbers with Unique Digits",
+                "Largest Divisible Subset", "Sum of Two Integers", "Guess Number Higher or Lower II",
+                "Wiggle Subsequence", "Combination Sum IV", "Kth Smallest Element in a Sorted Matrix",
+                "Insert Delete GetRandom O(1)", "Linked List Random Node", "Shuffle an Array", "Mini Parser",
+                "Lexicographical Numbers", "Elimination Game", "UTF-8 Validation", "Decode String",
+                "Longest Substring with At Least K Repeating Characters", "Rotate Function", "Integer Replacement",
+                "Random Pick Index", "Evaluate Division", "Nth Digit", "Remove K Digits",
+                "Queue Reconstruction by Height", "Arithmetic Slices", "Partition Equal Subset Sum",
+                "Pacific Atlantic Water Flow", "Battleships in a Board", "Maximum XOR of Two Numbers in an Array",
+                "Reconstruct Original Digits from English", "Longest Repeating Character Replacement",
+                "N-ary Tree Level Order Traversal", "Flatten a Multilevel Doubly Linked List",
+                "Minimum Genetic Mutation", "Non-overlapping Intervals", "Find Right Interval", "Path Sum III",
+                "Find All Anagrams in a String", "Find All Duplicates in an Array", "String Compression",
+                "Add Two Numbers II", "Number of Boomerangs", "Serialize and Deserialize BST",
+                "Delete Node in a BST", "Sort Characters By Frequency",
+                "Minimum Number of Arrows to Burst Balloons", "Minimum Moves to Equal Array Elements",
+                "4Sum II", "132 Pattern", "Circular Array Loop",
+                "Minimum Moves to Equal Array Elements II", "Matchsticks to Square", "Ones and Zeroes",
+                "Heaters", "Total Hamming Distance", "Target Sum", "Diagonal Traverse",
+                "Next Greater Element II", "Most Frequent Subtree Sum", "Find Bottom Left Tree Value",
+                "Find Largest Value in Each Tree Row", "Longest Palindromic Subsequence", "Coin Change II",
+                "Continuous Subarray Sum", "Longest Word in Dictionary through Deleting", "Contiguous Array",
+                "Beautiful Arrangement", "Random Pick with Weight", "Minesweeper", "K-diff Pairs in an Array",
+                "Construct Binary Tree from String", "Complex Number Multiplication",
+                "Convert BST to Greater Tree", "Minimum Time Difference", "Single Element in a Sorted Array",
+                "01 Matrix", "Number of Provinces", "Optimal Division", "Brick Wall",
+                "Next Greater Element III", "Subarray Sum Equals K", "Array Nesting", "Permutation in String",
+                "Out of Boundary Paths", "Shortest Unsorted Continuous Subarray", "Kill Process",
+                "Delete Operation for Two Strings", "Fraction Addition and Subtraction", "Valid Square",
+                "Construct String from Binary Tree", "Find Duplicate File in System", "Valid Triangle Number",
+                "Task Scheduler", "Design Circular Queue", "Add One Row to Tree"
+            ],
+            hard: [
+                "Median of Two Sorted Arrays", "Regular Expression Matching", "Merge k Sorted Lists",
+                "Reverse Nodes in k-Group", "Substring with Concatenation of All Words",
+                "Longest Valid Parentheses", "Sudoku Solver", "First Missing Positive", "Trapping Rain Water",
+                "Wildcard Matching", "N-Queens", "N-Queens II", "Permutation Sequence", "Valid Number",
+                "Text Justification", "Minimum Window Substring", "Largest Rectangle in Histogram",
+                "Maximal Rectangle", "Scramble String", "Recover Binary Search Tree", "Distinct Subsequences",
+                "Best Time to Buy and Sell Stock III", "Binary Tree Maximum Path Sum", "Word Ladder II",
+                "Palindrome Partitioning II", "Candy", "Word Break II", "Max Points on a Line",
+                "Find Minimum in Rotated Sorted Array II", "Dungeon Game", "Best Time to Buy and Sell Stock IV",
+                "Word Search II", "Shortest Palindrome", "The Skyline Problem", "Contains Duplicate III",
+                "Basic Calculator", "Number of Digit One", "Sliding Window Maximum", "Alien Dictionary",
+                "Integer to English Words", "Expression Add Operators", "Find Median from Data Stream",
+                "Best Meeting Point", "Serialize and Deserialize Binary Tree", "Remove Invalid Parentheses",
+                "Number of Islands II", "Burst Balloons", "Count of Smaller Numbers After Self",
+                "Create Maximum Number", "Count of Range Sum", "Longest Increasing Path in a Matrix",
+                "Patching Array", "Self Crossing", "Palindrome Pairs", "Russian Doll Envelopes",
+                "Frog Jump", "Split Array Largest Sum", "Strong Password Checker", "All O`one Data Structure",
+                "LFU Cache", "Poor Pigs", "Can I Win", "Find Permutation", "Zuma Game",
+                "The Maze III", "IPO", "Freedom Trail", "Super Washing Machines",
+                "Smallest Good Base", "Remove Boxes", "Split Array with Equal Sum", "Contain Virus",
+                "Cracking the Safe", "Minimize Max Distance to Gas Station", "Transform to Chessboard",
+                "Cherry Pickup", "Network Delay Time", "Preimage Size of Factorial Zeroes Function",
+                "Smallest Rotation with Highest Score", "Minimum Swaps To Make Sequences Increasing",
+                "Bricks Falling When Hit", "Split Array With Same Average", "Chalkboard XOR Game",
+                "Bus Routes", "Race Car", "Making A Large Island",
+                "Count Unique Characters of All Substrings of a Given String", "Consecutive Numbers Sum",
+                "Similar String Groups", "Shortest Path Visiting All Nodes", "Rectangle Area II",
+                "K-Similar Strings", "Minimum Cost to Hire K Workers", "Shortest Subarray with Sum at Least K",
+                "Shortest Path to Get All Keys", "Reachable Nodes In Subdivided Graph",
+                "Nth Magical Number", "Profitable Schemes", "Super Egg Drop", "Sum of Subsequence Widths",
+                "Maximum Frequency Stack", "Orderly Queue", "Stickers to Spell Word", "Minimum Number of Refueling Stops",
+                "Strange Printer", "Cut Off Trees for Golf Event", "24 Game", "K Empty Slots",
+                "Redundant Connection II", "Maximum Sum of 3 Non-Overlapping Subarrays",
+                "Falling Squares", "Random Pick with Blacklist", "Number of Distinct Islands II",
+                "Find K-th Smallest Pair Distance", "Range Module", "Max Stack",
+                "Minimum Window Subsequence", "Number of Atoms", "Count Different Palindromic Subsequences",
+                "My Calendar III", "Parse Lisp Expression", "Prefix and Suffix Search", "Set Intersection Size At Least Two",
+                "Employee Free Time", "Special Binary String", "Couples Holding Hands", "Max Chunks To Make Sorted II",
+                "Basic Calculator IV", "Basic Calculator III", "Sliding Puzzle", "Swim in Rising Water",
+                "Reaching Points", "Shortest Path Visiting All Nodes", "Champagne Tower", "Loud and Rich"
+            ]
+        };
 
         var allProblems = [];
         var currentFilter = 'all';
-
-        function shuffleArray(array) {
-            var shuffled = array.slice();
-            for (var i = shuffled.length - 1; i > 0; i--) {
-                var j = Math.floor(Math.random() * (i + 1));
-                var temp = shuffled[i];
-                shuffled[i] = shuffled[j];
-                shuffled[j] = temp;
-            }
-            return shuffled;
-        }
 
         function generateProblems() {
             var newProblems = [];
             var startDate = new Date('2026-01-27');
             
-            // Shuffle all problem pools once at the beginning
-            var shuffledEasy = shuffleArray(EASY_PROBLEMS);
-            var shuffledMedium = shuffleArray(MEDIUM_PROBLEMS);
-            var shuffledHard = shuffleArray(HARD_PROBLEMS);
+            // Create shuffled copies of all problem pools
+            var easyPool = shuffleArray([...PROBLEM_POOL.easy]);
+            var mediumPool = shuffleArray([...PROBLEM_POOL.medium]);
+            var hardPool = shuffleArray([...PROBLEM_POOL.hard]);
             
-            var easyIndex = 0;
-            var mediumIndex = 0;
-            var hardIndex = 0;
+            var easyIndex = 0, mediumIndex = 0, hardIndex = 0;
+            var usedProblems = new Set(); // Track all used problems
             
             for (var day = 1; day <= 150; day++) {
                 var currentDate = new Date(startDate);
                 currentDate.setDate(startDate.getDate() + day - 1);
+                var dayProblems = [];
                 
                 if (day <= 100) {
                     // Days 1-100: 2 Easy + 1 Medium
-                    var dayLevel = Math.ceil(day / 20); // 1-5
-                    
-                    // Get 2 unique easy problems of appropriate level
-                    var easyProblems = [];
-                    var attempts = 0;
-                    while (easyProblems.length < 2 && attempts < 100) {
-                        if (easyIndex >= shuffledEasy.length) {
-                            shuffledEasy = shuffleArray(EASY_PROBLEMS);
-                            easyIndex = 0;
+                    // Get 2 unique easy problems
+                    for (var i = 0; i < 2; i++) {
+                        while (usedProblems.has(easyPool[easyIndex])) {
+                            easyIndex++;
+                            if (easyIndex >= easyPool.length) {
+                                easyPool = shuffleArray([...PROBLEM_POOL.easy]);
+                                easyIndex = 0;
+                            }
                         }
-                        
-                        var problem = shuffledEasy[easyIndex];
-                        var problemLevel = parseInt(problem.difficulty.split('-')[1]);
-                        
-                        if (problemLevel === dayLevel) {
-                            easyProblems.push(problem);
-                        }
+                        dayProblems.push({name: easyPool[easyIndex], difficulty: 'Easy', topics: ['Array', 'DSA']});
+                        usedProblems.add(easyPool[easyIndex]);
                         easyIndex++;
-                        attempts++;
                     }
                     
-                    // Get 1 medium problem of appropriate level
-                    var mediumLevel = Math.ceil(day / 25); // 1-4
-                    var mediumProblem = null;
-                    attempts = 0;
-                    while (!mediumProblem && attempts < 100) {
-                        if (mediumIndex >= shuffledMedium.length) {
-                            shuffledMedium = shuffleArray(MEDIUM_PROBLEMS);
-                            mediumIndex = 0;
-                        }
-                        
-                        var problem = shuffledMedium[mediumIndex];
-                        var problemLevel = parseInt(problem.difficulty.split('-')[1]);
-                        
-                        if (problemLevel === mediumLevel) {
-                            mediumProblem = problem;
-                        }
+                    // Get 1 unique medium problem
+                    while (usedProblems.has(mediumPool[mediumIndex])) {
                         mediumIndex++;
-                        attempts++;
-                    }
-                    
-                    // Ensure we have all problems
-                    while (easyProblems.length < 2) {
-                        if (easyIndex >= shuffledEasy.length) {
-                            shuffledEasy = shuffleArray(EASY_PROBLEMS);
-                            easyIndex = 0;
-                        }
-                        easyProblems.push(shuffledEasy[easyIndex++]);
-                    }
-                    
-                    if (!mediumProblem) {
-                        if (mediumIndex >= shuffledMedium.length) {
-                            shuffledMedium = shuffleArray(MEDIUM_PROBLEMS);
+                        if (mediumIndex >= mediumPool.length) {
+                            mediumPool = shuffleArray([...PROBLEM_POOL.medium]);
                             mediumIndex = 0;
                         }
-                        mediumProblem = shuffledMedium[mediumIndex++];
                     }
-                    
-                    newProblems.push({
-                        day: day,
-                        date: currentDate.toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' }),
-                        problems: [easyProblems[0], easyProblems[1], mediumProblem],
-                        completed: [false, false, false],
-                        notes: ['', '', '']
-                    });
+                    dayProblems.push({name: mediumPool[mediumIndex], difficulty: 'Medium', topics: ['Array', 'DSA']});
+                    usedProblems.add(mediumPool[mediumIndex]);
+                    mediumIndex++;
                 } else {
-                    // Days 101-150: 1 Medium-4 + 1 Hard
-                    var adjustedDay = day - 100;
-                    var hardLevel = Math.ceil(adjustedDay / 17); // 1-3
-                    
-                    // Get 1 medium-4 problem
-                    var mediumProblem = null;
-                    var attempts = 0;
-                    while (!mediumProblem && attempts < 100) {
-                        if (mediumIndex >= shuffledMedium.length) {
-                            shuffledMedium = shuffleArray(MEDIUM_PROBLEMS);
-                            mediumIndex = 0;
-                        }
-                        
-                        var problem = shuffledMedium[mediumIndex];
-                        var problemLevel = parseInt(problem.difficulty.split('-')[1]);
-                        
-                        if (problemLevel === 4) {
-                            mediumProblem = problem;
-                        }
+                    // Days 101-150: 1 Medium + 1 Hard
+                    // Get 1 unique medium problem
+                    while (usedProblems.has(mediumPool[mediumIndex])) {
                         mediumIndex++;
-                        attempts++;
-                    }
-                    
-                    // Get 1 hard problem of appropriate level
-                    var hardProblem = null;
-                    attempts = 0;
-                    while (!hardProblem && attempts < 100) {
-                        if (hardIndex >= shuffledHard.length) {
-                            shuffledHard = shuffleArray(HARD_PROBLEMS);
-                            hardIndex = 0;
-                        }
-                        
-                        var problem = shuffledHard[hardIndex];
-                        var problemLevel = parseInt(problem.difficulty.split('-')[1]);
-                        
-                        if (problemLevel === hardLevel) {
-                            hardProblem = problem;
-                        }
-                        hardIndex++;
-                        attempts++;
-                    }
-                    
-                    // Fallback if no matches found
-                    if (!mediumProblem) {
-                        if (mediumIndex >= shuffledMedium.length) {
-                            shuffledMedium = shuffleArray(MEDIUM_PROBLEMS);
+                        if (mediumIndex >= mediumPool.length) {
+                            mediumPool = shuffleArray([...PROBLEM_POOL.medium]);
                             mediumIndex = 0;
                         }
-                        mediumProblem = shuffledMedium[mediumIndex++];
                     }
+                    dayProblems.push({name: mediumPool[mediumIndex], difficulty: 'Medium', topics: ['Array', 'DSA']});
+                    usedProblems.add(mediumPool[mediumIndex]);
+                    mediumIndex++;
                     
-                    if (!hardProblem) {
-                        if (hardIndex >= shuffledHard.length) {
-                            shuffledHard = shuffleArray(HARD_PROBLEMS);
+                    // Get 1 unique hard problem
+                    while (usedProblems.has(hardPool[hardIndex])) {
+                        hardIndex++;
+                        if (hardIndex >= hardPool.length) {
+                            hardPool = shuffleArray([...PROBLEM_POOL.hard]);
                             hardIndex = 0;
                         }
-                        hardProblem = shuffledHard[hardIndex++];
                     }
-                    
-                    newProblems.push({
-                        day: day,
-                        date: currentDate.toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' }),
-                        problems: [mediumProblem, hardProblem],
-                        completed: [false, false],
-                        notes: ['', '']
-                    });
+                    dayProblems.push({name: hardPool[hardIndex], difficulty: 'Hard', topics: ['Array', 'DSA']});
+                    usedProblems.add(hardPool[hardIndex]);
+                    hardIndex++;
                 }
+                
+                newProblems.push({
+                    day: day,
+                    date: currentDate.toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' }),
+                    problems: dayProblems,
+                    completed: new Array(dayProblems.length).fill(false),
+                    notes: new Array(dayProblems.length).fill('')
+                });
             }
             
             return newProblems;
+        }
+
+        function shuffleArray(array) {
+            var shuffled = [...array];
+            for (var i = shuffled.length - 1; i > 0; i--) {
+                var j = Math.floor(Math.random() * (i + 1));
+                [shuffled[i], shuffled[j]] = [shuffled[j], shuffled[i]];
+            }
+            return shuffled;
         }
 
         function saveToLocalStorage() {
@@ -558,11 +358,13 @@
         }
 
         function exportToCSV() {
-            var csv = 'Day,Date,Problem #,Problem Name,Difficulty,Topics,Status,Notes\n';
+            var csv = 'Day,Date,Problem #,Problem Name,Difficulty,Status,Notes\n';
             
             allProblems.forEach(function(dayData) {
                 dayData.problems.forEach(function(problem, idx) {
-                    csv += dayData.day + ',' + dayData.date + ',' + (idx + 1) + ',"' + problem.name + '",' + problem.difficulty + ',"' + problem.topics.join(', ') + '",' + (dayData.completed[idx] ? 'Done' : 'Pending') + ',"' + dayData.notes[idx].replace(/"/g, '""') + '"\n';
+                    csv += dayData.day + ',' + dayData.date + ',' + (idx + 1) + ',"' + problem.name + '",' + 
+                           problem.difficulty + ',' + (dayData.completed[idx] ? 'Done' : 'Pending') + ',"' + 
+                           dayData.notes[idx].replace(/"/g, '""') + '"\n';
                 });
             });
             
@@ -570,7 +372,7 @@
             var url = window.URL.createObjectURL(blob);
             var a = document.createElement('a');
             a.href = url;
-            a.download = 'dsa_tracker_jan_may_2026.csv';
+            a.download = 'dsa_tracker_' + new Date().toISOString().split('T')[0] + '.csv';
             a.click();
         }
 
@@ -583,7 +385,9 @@
             });
 
             var total = allProblems.reduce(function(sum, p) { return sum + p.problems.length; }, 0);
-            var completed = allProblems.reduce(function(sum, p) { return sum + p.completed.filter(function(c) { return c; }).length; }, 0);
+            var completed = allProblems.reduce(function(sum, p) { 
+                return sum + p.completed.filter(function(c) { return c; }).length; 
+            }, 0);
             
             document.getElementById('statsCompleted').textContent = completed + '/' + total;
             document.getElementById('statsProgress').textContent = Math.round((completed / total) * 100) + '%';
@@ -595,12 +399,14 @@
                 html += '<div class="flex justify-between items-center"><div>';
                 html += '<h3 class="text-xl font-bold text-white">Day ' + dayData.day + '</h3>';
                 html += '<p class="text-purple-200 text-sm">' + dayData.date + '</p></div>';
-                html += '<div class="text-white text-sm">' + dayData.completed.filter(function(c) { return c; }).length + '/' + dayData.problems.length + ' Done</div></div></div>';
+                html += '<div class="text-white text-sm">' + 
+                        dayData.completed.filter(function(c) { return c; }).length + '/' + 
+                        dayData.problems.length + ' Done</div></div></div>';
                 html += '<div class="p-4 space-y-4">';
                 
                 dayData.problems.forEach(function(problem, probIndex) {
-                    var diffClass = problem.difficulty.startsWith('Easy') ? 'bg-green-500/20 text-green-300' :
-                                  problem.difficulty.startsWith('Medium') ? 'bg-yellow-500/20 text-yellow-300' :
+                    var diffClass = problem.difficulty === 'Easy' ? 'bg-green-500/20 text-green-300' :
+                                  problem.difficulty === 'Medium' ? 'bg-yellow-500/20 text-yellow-300' :
                                   'bg-red-500/20 text-red-300';
                     
                     var checkIcon = dayData.completed[probIndex] 
@@ -613,13 +419,12 @@
                     html += '<div class="flex-1"><div class="flex items-center gap-2 flex-wrap mb-2">';
                     html += '<h4 class="text-lg font-semibold text-white">' + problem.name + '</h4>';
                     html += '<span class="text-xs px-2 py-1 rounded-full ' + diffClass + '">' + problem.difficulty + '</span>';
-                    
-                    problem.topics.forEach(function(topic) {
-                        html += '<span class="text-xs px-2 py-1 rounded-full bg-purple-500/20 text-purple-300">' + topic + '</span>';
-                    });
-                    
                     html += '</div>';
-                    html += '<textarea placeholder="Add your notes, approach, time complexity, learnings..." onblur="updateNotes(' + actualDayIndex + ', ' + probIndex + ', this.value)" class="w-full bg-white/5 border border-white/10 rounded-lg p-3 text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-purple-500 min-h-[80px]">' + dayData.notes[probIndex] + '</textarea>';
+                    html += '<textarea placeholder="Add your notes, approach, time complexity, learnings..." ' +
+                            'onblur="updateNotes(' + actualDayIndex + ', ' + probIndex + ', this.value)" ' +
+                            'class="w-full bg-white/5 border border-white/10 rounded-lg p-3 text-white placeholder-gray-400 ' +
+                            'focus:outline-none focus:ring-2 focus:ring-purple-500 min-h-[80px]">' + 
+                            dayData.notes[probIndex] + '</textarea>';
                     html += '</div></div></div>';
                 });
                 
